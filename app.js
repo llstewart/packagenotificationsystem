@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Navigation handling
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMXa4cqsUUs8TjxyXLGba7SCm90lWobKrNa3BV3JECMlh0idKiLsLcLcueSDoMHH-G_w/exec';
+    
+    // Navigation handling (unchanged)
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -15,23 +17,27 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('registrationForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            aptNumber: document.getElementById('aptNumber').value
+            name: document.getElementById('name').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            aptNumber: document.getElementById('aptNumber').value.trim()
         };
 
+        if (!validateForm(formData, ['name', 'email', 'aptNumber'])) {
+            showStatus('Please fill out all required fields', 'error');
+            return;
+        }
+
         try {
-            const response = await fetch('YOUR_REGISTRATION_SCRIPT_URL', {
+            const response = await fetch(`${SCRIPT_URL}?action=registerResident`, {
                 method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
             
-            if(response.ok) {
-                alert('Resident registered successfully!');
-                e.target.reset();
-            }
+            handleResponse(response, 'Resident registered successfully!');
+            e.target.reset();
         } catch (error) {
-            showStatus('Error registering resident', 'error');
+            showStatus('Error registering resident: ' + error.message, 'error');
         }
     });
 
@@ -41,55 +47,77 @@ document.addEventListener('DOMContentLoaded', () => {
         const packageData = {
             date: document.getElementById('packageDate').value,
             time: document.getElementById('packageTime').value,
-            courier: document.getElementById('courier').value,
-            aptNumber: document.getElementById('aptNumberPackage').value,
-            description: document.getElementById('packageDesc').value
+            courier: document.getElementById('courier').value.trim(),
+            aptNumber: document.getElementById('aptNumberPackage').value.trim(),
+            description: document.getElementById('packageDesc').value.trim()
         };
 
+        if (!validateForm(packageData, ['date', 'time', 'courier', 'aptNumber', 'description'])) {
+            showStatus('Please fill out all required fields', 'error');
+            return;
+        }
+
         try {
-            const response = await fetch('YOUR_PACKAGE_SCRIPT_URL', {
+            const response = await fetch(`${SCRIPT_URL}?action=logPackage`, {
                 method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(packageData)
             });
 
-            if(response.ok) {
-                showStatus('Package logged successfully!', 'success');
-                e.target.reset();
-                updatePendingCount();
-            }
+            handleResponse(response, 'Package logged successfully!');
+            e.target.reset();
+            updatePendingCount();
         } catch (error) {
-            showStatus('Error logging package', 'error');
+            showStatus('Error logging package: ' + error.message, 'error');
         }
     });
 
     // Send Notifications
     document.getElementById('sendEmails').addEventListener('click', async () => {
         try {
-            const response = await fetch('YOUR_EMAIL_SCRIPT_URL');
-            const result = await response.text();
+            const response = await fetch(`${SCRIPT_URL}?action=sendNotifications`);
+            const count = await response.text();
             
-            showStatus(`Successfully sent ${result} notifications`, 'success');
-            updatePendingCount();
+            if (response.ok) {
+                showStatus(`Successfully sent ${count} notifications`, 'success');
+                updatePendingCount();
+            } else {
+                showStatus('Error sending notifications', 'error');
+            }
         } catch (error) {
-            showStatus('Error sending notifications', 'error');
+            showStatus('Error sending notifications: ' + error.message, 'error');
         }
     });
 
     // Helper Functions
-    function showStatus(message, type) {
-        const statusDiv = document.getElementById('statusMessage');
-        statusDiv.textContent = message;
-        statusDiv.className = type;
+    function validateForm(data, requiredFields) {
+        return requiredFields.every(field => data[field]);
+    }
+
+    async function handleResponse(response, successMessage) {
+        if (response.ok) {
+            showStatus(successMessage, 'success');
+            return true;
+        }
+        const error = await response.text();
+        throw new Error(error);
     }
 
     async function updatePendingCount() {
         try {
-            const response = await fetch('YOUR_PENDING_COUNT_SCRIPT_URL');
+            const response = await fetch(`${SCRIPT_URL}?action=getPendingCount`);
             const count = await response.text();
             document.getElementById('pendingCount').textContent = count;
         } catch (error) {
             console.error('Error fetching pending count:', error);
         }
+    }
+
+    function showStatus(message, type) {
+        const statusDiv = document.getElementById('statusMessage');
+        statusDiv.textContent = message;
+        statusDiv.className = `status ${type}`;
+        setTimeout(() => statusDiv.textContent = '', 5000);
     }
 
     // Initial load
