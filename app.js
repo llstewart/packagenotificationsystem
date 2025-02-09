@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyV7MyYut8WWK6fdW1cG5RaMM2Y3_F6ImGd8eV1XYmZoTM8kJ_App9RBkY9FORK8AqP_Q/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMXa4cqsUUs8TjxyXLGba7SCm90lWobKrNa3BV3JECMlh0idKiLsLcLcueSDoMHH-G_w/exec';
     
     // Navigation handling (unchanged)
     document.querySelectorAll('.nav-link').forEach(link => {
