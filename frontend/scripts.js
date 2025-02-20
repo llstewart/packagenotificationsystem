@@ -1,4 +1,7 @@
-// Registration Form
+// Change API URL to match Flask server
+const API_BASE_URL = "http://127.0.0.1:5000";  // Ensure Flask runs on port 5000
+
+// Registration Form Submission
 document.getElementById('registrationForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -9,46 +12,19 @@ document.getElementById('registrationForm')?.addEventListener('submit', async (e
     };
 
     try {
-        const response = await fetch('/api/residents', {
+        const response = await fetch(`${API_BASE_URL}/api/residents`, {  // Use the correct API URL
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
+
+        const result = await response.json();
         
         if (response.ok) {
             alert('Resident registered successfully!');
             e.target.reset();
         } else {
-            alert('Error: ' + (await response.json()).message);
-        }
-    } catch (error) {
-        alert('Network error: ' + error.message);
-    }
-});
-
-// Package Form
-document.getElementById('packageForm')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const data = {
-        courier: document.getElementById('courier').value,
-        apartment: document.getElementById('apartment').value,
-        description: document.getElementById('description').value,
-        notes: document.getElementById('notes').value
-    };
-
-    try {
-        const response = await fetch('/api/packages', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-        
-        if (response.ok) {
-            alert('Package logged successfully!');
-            e.target.reset();
-        } else {
-            alert('Error: ' + (await response.json()).message);
+            alert('Error: ' + result.error);
         }
     } catch (error) {
         alert('Network error: ' + error.message);
