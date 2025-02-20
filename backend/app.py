@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 CORS(app)  # Enable CORS globally for all routes
 
-GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyE-tnK10vRlnB-_x2ox7bCBZNDr15S0Ch5J6Cs1033rVCtLS-Vu-Rh8P3PLZIXig1lbA/exec"
+GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyZeHBI9R2fZrio3r2N3mALNiu6fSB0LOAnAo4u8o1Sz6Yw7Z3s1XAqsf9zGV-tK0gk/exec"
 
 @app.route('/api/residents', methods=['POST'])
 def add_resident():
@@ -16,6 +16,7 @@ def add_resident():
         "action": "registerResident",
         "name": data["name"],
         "email": data["email"],
+        "phone": data["phone"],  # NEW PHONE FIELD
         "aptNumber": data["apartment"]
     }
 

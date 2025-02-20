@@ -34,6 +34,7 @@ document.getElementById('registrationForm')?.addEventListener('submit', async (e
     const data = {
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,  // NEW PHONE FIELD
         apartment: document.getElementById('apartment').value
     };
 
