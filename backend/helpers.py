@@ -8,7 +8,7 @@ EMAIL_ADDRESS = "notificationsapartment@gmail.com"
 EMAIL_PASSWORD = "obko qrot ctor wlic"  # Replace with your Gmail App Password
 
 # Updated Google Apps Script URL
-GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyZeHBI9R2fZrio3r2N3mALNiu6fSB0LOAnAo4u8o1Sz6Yw7Z3s1XAqsf9zGV-tK0gk/exec"
+GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwRGiJapOLxYF7Z8KCh57-j7jWO0XFgZxYXex4_8ExwNtzsiZE8l3lQauU_T6dVJaQT9g/exec"
 
 def send_email(to_email, subject, body):
     """Send an email notification to the resident."""
