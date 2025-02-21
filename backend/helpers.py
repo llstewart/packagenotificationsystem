@@ -12,6 +12,10 @@ EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS", "notificationsapartment@gmail.com")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD", "obko qrot ctor wlic")  # Replace with actual password
 ADMIN_EMAIL = "vidd123@gmail.com"  # ✅ Set the admin email
 
+
+# Updated Google Apps Script URL
+GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwRGiJapOLxYF7Z8KCh57-j7jWO0XFgZxYXex4_8ExwNtzsiZE8l3lQauU_T6dVJaQT9g/exec"
+
 # ✅ Store Pending Approvals in Memory
 pending_approvals = {}
 
