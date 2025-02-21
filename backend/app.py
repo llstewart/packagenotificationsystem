@@ -1,15 +1,17 @@
-from flask import Flask, jsonify, request
+import os
+from flask import Flask
 from flask_cors import CORS
-from helpers import add_resident  # Import function from helpers.py
+from helpers import residents  # ✅ Import the function from helpers.py
 
+# ✅ Load environment variables
+EMAIL_NOTIFICATIONS_ENABLED = os.getenv("EMAIL_NOTIFICATIONS", "true").lower() == "true"
+
+# ✅ Flask App Setup
 app = Flask(__name__)
-CORS(app)  # Enable CORS globally for all routes
+CORS(app)
 
-@app.route('/api/residents', methods=['POST'])
-def register_resident():
-    data = request.json
-    response, status_code = add_resident(data)  # Call the function from helpers.py
-    return jsonify(response), status_code
+# ✅ Register the `residents` function as a route
+app.add_url_rule('/api/residents', view_func=residents, methods=['POST', 'GET'])
 
 if __name__ == '__main__':
     app.run(debug=True)
