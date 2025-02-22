@@ -1,6 +1,8 @@
 import os
 from flask import Flask
 from flask_cors import CORS
+from helpers import check_resident_email
+from helpers import log_package  # ✅ Import the functions from helpers.py
 from helpers import residents  # ✅ Import the function from helpers.py
 
 # ✅ Load environment variables
@@ -12,6 +14,12 @@ CORS(app)
 
 # ✅ Register the `residents` function as a route
 app.add_url_rule('/api/residents', view_func=residents, methods=['POST', 'GET'])
+
+# ✅Register the `check_resident_email` function as a route
+app.add_url_rule('/api/residents/check-email', view_func=check_resident_email, methods=['POST'])
+
+# ✅Register the `log_package` function as a route
+app.add_url_rule('/api/packages', view_func=log_package, methods=['POST'])
 
 if __name__ == '__main__':
     app.run(debug=True)
