@@ -5,16 +5,16 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import Flask, jsonify, request, url_for  # ✅ Add `request` import
 from flask_cors import CORS
-GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyZeHBI9R2fZrio3r2N3mALNiu6fSB0LOAnAo4u8o1Sz6Yw7Z3s1XAqsf9zGV-tK0gk/exec"
+GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwXwh0yvsNhGEMH0EnL0mVPWA-gGWAxxFLL0fR2NlEdIRrP2HpTzNfwC3h_KiWFeaCqIg/exec"
 
 # ✅ Load environment variables
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS", "notificationsapartment@gmail.com")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD", "obko qrot ctor wlic")  # Replace with actual password
-ADMIN_EMAIL = "vidd123@gmail.com"  # ✅ Set the admin email
+ADMIN_EMAIL = "lincolnstewart4@gmail.com"  # ✅ Set the admin email
 
 
 # Updated Google Apps Script URL
-GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwRGiJapOLxYF7Z8KCh57-j7jWO0XFgZxYXex4_8ExwNtzsiZE8l3lQauU_T6dVJaQT9g/exec"
+GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwXwh0yvsNhGEMH0EnL0mVPWA-gGWAxxFLL0fR2NlEdIRrP2HpTzNfwC3h_KiWFeaCqIg/exec"
 
 # ✅ Store Pending Approvals in Memory
 pending_approvals = {}
@@ -140,6 +140,7 @@ def add_resident(data):
         return {"message": "Resident added successfully!"}, 201
     return {"error": "Failed to register resident"}, 500
 
+
 def residents():
     """Handles both resident registration and admin approval."""
     if request.method == 'POST':
@@ -167,3 +168,50 @@ def residents():
             </body>
         </html>
         """, status_code
+    
+### ───────────────────────────────────────────
+### FUNCTION: Check if a Resident's Email Exists
+### ───────────────────────────────────────────
+def check_resident_email():
+    data = request.json
+    apt_number = data.get("aptNumber")
+
+    if not apt_number:
+        return jsonify({"error": "Apartment number is required"}), 400
+
+    payload = {
+        "action": "checkResidentEmail",
+        "aptNumber": apt_number
+    }
+
+    google_response = requests.post(GOOGLE_SCRIPT_URL, json=payload)
+
+    if google_response.status_code == 200:
+        result = google_response.json()
+        return jsonify(result), 200
+    return jsonify({"error": "Failed to check email"}), 500
+
+### ───────────────────────────────────────────
+### ✅ FUNCTION: To Log a package 
+### ───────────────────────────────────────────
+
+def log_package():
+    data = request.json
+
+    required_fields = ["name", "aptNumber", "courier", "description"]
+    if not all(field in data for field in required_fields):
+        return jsonify({"error": "Missing required fields"}), 400
+
+    payload = {
+        "action": "logPackage",
+        "name": data["name"],
+        "aptNumber": data["aptNumber"],
+        "courier": data["courier"],
+        "description": data["description"]
+    }
+
+    google_response = requests.post(GOOGLE_SCRIPT_URL, json=payload)
+
+    if google_response.status_code == 200:
+        return jsonify({"message": "Package logged successfully"}), 200
+    return jsonify({"error": "Failed to log package"}), 500

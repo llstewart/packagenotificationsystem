@@ -24,7 +24,7 @@ function showPopup(message, isSuccess = true) {
     setTimeout(() => {
         popup.style.opacity = "0";
         setTimeout(() => document.body.removeChild(popup), 500);
-    }, 3000);
+    }, 5000);
 }
 
 // Registration Form Submission
@@ -52,6 +52,60 @@ document.getElementById('registrationForm')?.addEventListener('submit', async (e
             e.target.reset();
         } else {
             showPopup("❌ Registration Failed: " + result.error, false);
+        }
+    } catch (error) {
+        showPopup("❌ Network Error: " + error.message, false);
+    }
+});
+
+
+document.getElementById('packageForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const data = {
+        name: document.getElementById('name').value.trim(),
+        apartment: document.getElementById('apartment').value.trim().toUpperCase(),
+        courier: document.getElementById('courier').value.trim(),
+        description: document.getElementById('description').value.trim()
+    };
+
+    try {
+        // Check if there is an email associated with the apartment number
+        const checkResponse = await fetch(`${API_BASE_URL}/api/residents/check-email`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ aptNumber: data.apartment })
+        });
+
+        const checkResult = await checkResponse.json();
+        console.log("Email check response:", checkResult); // Debugging
+
+        // Fix: Access exists inside the message object
+        if (!checkResult.message.exists) {
+            showPopup("❌ No email found for the given apartment number", false);
+            return;
+        }
+
+        // Log the package
+        const logResponse = await fetch(`${API_BASE_URL}/api/packages`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: "logPackage",
+                name: data.name,
+                aptNumber: data.apartment,
+                courier: data.courier,
+                description: data.description
+            })
+        });
+
+        const logResult = await logResponse.json();
+
+        if (logResponse.ok) {
+            showPopup("✅ Package logged successfully!", true);
+            e.target.reset();
+        } else {
+            showPopup("❌ Logging Failed: " + logResult.error, false);
         }
     } catch (error) {
         showPopup("❌ Network Error: " + error.message, false);
