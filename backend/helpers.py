@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import Flask, jsonify, request, url_for  # ✅ Add `request` import
 from flask_cors import CORS
-GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwXwh0yvsNhGEMH0EnL0mVPWA-gGWAxxFLL0fR2NlEdIRrP2HpTzNfwC3h_KiWFeaCqIg/exec"
+GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwwgLr6bLg7mr85sLVi8a9eN-wJ_yHYAkK_tQzJ8EFQRMFBqBAzrJ49cz86w-UBNb_U3Q/exec"
 
 # ✅ Load environment variables
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS", "notificationsapartment@gmail.com")
@@ -14,7 +14,7 @@ ADMIN_EMAIL = "lincolnstewart4@gmail.com"  # ✅ Set the admin email
 
 
 # Updated Google Apps Script URL
-GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwXwh0yvsNhGEMH0EnL0mVPWA-gGWAxxFLL0fR2NlEdIRrP2HpTzNfwC3h_KiWFeaCqIg/exec"
+GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwwgLr6bLg7mr85sLVi8a9eN-wJ_yHYAkK_tQzJ8EFQRMFBqBAzrJ49cz86w-UBNb_U3Q/exec"
 
 # ✅ Store Pending Approvals in Memory
 pending_approvals = {}
