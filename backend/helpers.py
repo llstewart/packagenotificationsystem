@@ -202,16 +202,49 @@ def log_package():
     if not all(field in data for field in required_fields):
         return jsonify({"error": "Missing required fields"}), 400
 
+    # Get the resident's emails
     payload = {
+        "action": "checkResidentEmail",
+        "aptNumber": data["aptNumber"]
+    }
+    google_response = requests.post(GOOGLE_SCRIPT_URL, json=payload)
+
+    if google_response.status_code != 200:
+        return jsonify({"error": "Failed to retrieve resident emails"}), 500
+    
+    email_data = google_response.json()
+
+    # Extract emails correctly
+    resident_emails = email_data.get("message", {}).get("emails", [])
+
+    # Ensure we have a list of emails
+    if isinstance(resident_emails, str):  
+        resident_emails = [resident_emails]  # Convert single email into a list
+
+
+    if not resident_emails:
+        return jsonify({"error": "No email found for the given apartment"}), 404
+
+    # Log the package
+    log_payload = {
         "action": "logPackage",
         "name": data["name"],
         "aptNumber": data["aptNumber"],
         "courier": data["courier"],
         "description": data["description"]
     }
+    log_response = requests.post(GOOGLE_SCRIPT_URL, json=log_payload)
 
-    google_response = requests.post(GOOGLE_SCRIPT_URL, json=payload)
+    if log_response.status_code == 200:
+        # Construct the email content
+        description = data["description"].strip()
+        description_text = f"\n\nDescription: {description}" if description else "\n\nThere was no description provided."
+        email_body = f"Hello,\n\nApartment #{data['aptNumber']}: A package has arrived for {data['name']}.{description_text}"
 
-    if google_response.status_code == 200:
-        return jsonify({"message": "Package logged successfully"}), 200
+        # Send email notification to all associated emails
+        for email in resident_emails:
+            send_email(email, "Package Arrival Notification", email_body)
+
+        return jsonify({"message": "Package logged and emails sent successfully"}), 200
+
     return jsonify({"error": "Failed to log package"}), 500
