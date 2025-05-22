@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Package Entry</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
     <div class="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h1 class="text-2xl font-bold text-gray-800 mb-6">New Package Entry</h1>
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">New Package Entry</h1>
+            <a href="landing.html" class="text-indigo-600 hover:text-indigo-800 text-sm">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
         <form id="packageForm" class="space-y-4">
             <div>
                 <label class="block text-sm font-medium text-gray-700">Resident Name</label>

@@ -78,12 +78,11 @@ document.getElementById('packageForm').addEventListener('submit', async (e) => {
         });
 
         const checkResult = await checkResponse.json();
-        console.log("Email check response:", checkResult); // Debugging
-
-        // Fix: Access exists inside the message object
+        console.log("Email check response:", checkResult); // Debugging        // Fix: Access exists inside the message object
         if (!checkResult.message.exists) {
-            showPopup("❌ No email found for the given apartment number", false);
-            return;
+            showPopup("⚠️ No email found for the given apartment number. The package will be logged, but no notification will be sent.", false);
+            console.warn(`No email found for apartment ${data.apartment}`);
+            // Continue with logging the package anyway
         }
 
         // Log the package
@@ -97,17 +96,19 @@ document.getElementById('packageForm').addEventListener('submit', async (e) => {
                 courier: data.courier,
                 description: data.description
             })
-        });
-
-        const logResult = await logResponse.json();
+        });        const logResult = await logResponse.json();
 
         if (logResponse.ok) {
-            showPopup("✅ Package logged successfully!", true);
+            if (logResult.emailsSent) {
+                showPopup("✅ Package logged successfully and resident notified!", true);
+            } else {
+                showPopup("✅ Package logged successfully! ⚠️ No notifications sent (no registered email)", true);
+            }
             e.target.reset();
         } else {
-            showPopup("❌ Logging Failed: " + logResult.error, false);
+            showPopup("⚠️ Logging Warning: " + logResult.error, false);
         }
     } catch (error) {
-        showPopup("❌ Network Error: " + error.message, false);
+        showPopup("⚠️ Network Warning: " + error.message, false);
     }
 });

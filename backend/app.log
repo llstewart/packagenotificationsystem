@@ -1,0 +1,77 @@
+2025-05-21 20:31:58,245 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-21 20:31:58,246 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-21 20:31:58,287 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-21 20:31:59,745 - werkzeug - WARNING -  * Debugger is active!
+2025-05-21 20:31:59,781 - werkzeug - INFO -  * Debugger PIN: 996-867-870
+2025-05-21 20:33:49,434 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\app.py', reloading
+2025-05-21 20:33:49,435 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\helpers.py', reloading
+2025-05-21 20:33:49,505 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\helpers.py', reloading
+2025-05-21 20:33:49,508 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\app.py', reloading
+2025-05-21 20:33:50,603 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-21 20:33:51,984 - werkzeug - WARNING -  * Debugger is active!
+2025-05-21 20:33:52,008 - werkzeug - INFO -  * Debugger PIN: 996-867-870
+2025-05-21 20:35:05,590 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\helpers.py', reloading
+2025-05-21 20:35:05,592 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\helpers.py', reloading
+2025-05-21 20:35:05,637 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\app.py', reloading
+2025-05-21 20:35:05,638 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\app.py', reloading
+2025-05-21 20:35:07,178 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-21 20:35:08,819 - werkzeug - WARNING -  * Debugger is active!
+2025-05-21 20:35:08,849 - werkzeug - INFO -  * Debugger PIN: 996-867-870
+2025-05-21 21:11:50,991 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 21:11:50] "OPTIONS /api/residents/check-email HTTP/1.1" 200 -
+2025-05-21 21:11:57,232 - helpers - WARNING - No email found for apartment SS
+2025-05-21 21:11:57,239 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 21:11:57] "POST /api/residents/check-email HTTP/1.1" 200 -
+2025-05-21 21:11:57,290 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 21:11:57] "OPTIONS /api/packages HTTP/1.1" 200 -
+2025-05-21 21:12:02,108 - helpers - WARNING - No email found for apartment SS. Package will be logged without notification.
+2025-05-21 21:12:07,177 - helpers - INFO - Package logged successfully for dd at apartment SS without notifications
+2025-05-21 21:12:07,188 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 21:12:07] "POST /api/packages HTTP/1.1" 200 -
+2025-05-21 21:12:25,153 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 21:12:25] "OPTIONS /api/residents/check-email HTTP/1.1" 200 -
+2025-05-21 21:12:30,606 - helpers - WARNING - No email found for apartment SJDSJD
+2025-05-21 21:12:30,613 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 21:12:30] "POST /api/residents/check-email HTTP/1.1" 200 -
+2025-05-21 21:12:30,623 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 21:12:30] "OPTIONS /api/packages HTTP/1.1" 200 -
+2025-05-21 21:12:35,768 - helpers - WARNING - No email found for apartment SJDSJD. Package will be logged without notification.
+2025-05-21 21:12:40,734 - helpers - INFO - Package logged successfully for 43 at apartment SJDSJD without notifications
+2025-05-21 21:12:40,743 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 21:12:40] "POST /api/packages HTTP/1.1" 200 -
+2025-05-21 21:19:37,433 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\models.py', reloading
+2025-05-21 21:19:38,807 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-21 21:19:40,813 - werkzeug - WARNING -  * Debugger is active!
+2025-05-21 21:19:40,843 - werkzeug - INFO -  * Debugger PIN: 996-867-870
+2025-05-21 22:36:00,385 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\models.py', reloading
+2025-05-21 22:36:00,418 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\__init__.py', reloading
+2025-05-21 22:36:00,423 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\json\\__init__.py', reloading
+2025-05-21 22:36:00,425 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\app.py', reloading
+2025-05-21 22:36:00,428 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\blueprints.py', reloading
+2025-05-21 22:36:00,429 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\config.py', reloading
+2025-05-21 22:36:00,431 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\globals.py', reloading
+2025-05-21 22:36:00,433 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\helpers.py', reloading
+2025-05-21 22:36:02,008 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-21 22:36:04,790 - werkzeug - WARNING -  * Debugger is active!
+2025-05-21 22:36:04,825 - werkzeug - INFO -  * Debugger PIN: 996-867-870
+2025-05-22 09:41:08,976 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\models.py', reloading
+2025-05-22 09:41:09,004 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\__init__.py', reloading
+2025-05-22 09:41:09,007 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\json\\__init__.py', reloading
+2025-05-22 09:41:09,008 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\app.py', reloading
+2025-05-22 09:41:09,009 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\blueprints.py', reloading
+2025-05-22 09:41:09,010 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\config.py', reloading
+2025-05-22 09:41:09,011 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\globals.py', reloading
+2025-05-22 09:41:09,012 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\helpers.py', reloading
+2025-05-22 09:41:09,050 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\werkzeug\\utils.py', reloading
+2025-05-22 09:41:09,051 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\werkzeug\\wrappers\\__init__.py', reloading
+2025-05-22 09:41:09,053 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\typing.py', reloading
+2025-05-22 09:41:09,055 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\scaffold.py', reloading
+2025-05-22 09:41:09,057 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\sessions.py', reloading
+2025-05-22 09:41:09,058 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\wrappers.py', reloading
+2025-05-22 09:41:09,076 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\flask\\json\\tag.py', reloading
+2025-05-22 09:41:09,079 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\werkzeug\\wrappers\\request.py', reloading
+2025-05-22 09:41:09,084 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\werkzeug\\wrappers\\response.py', reloading
+2025-05-22 09:41:09,088 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\werkzeug\\_internal.py', reloading
+2025-05-22 09:41:09,091 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\werkzeug\\sansio\\response.py', reloading
+2025-05-22 09:41:09,095 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\werkzeug\\sansio\\request.py', reloading
+2025-05-22 09:41:09,129 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\smtplib.py', reloading
+2025-05-22 09:41:09,135 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\email\\mime\\text.py', reloading
+2025-05-22 09:41:09,142 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\email\\mime\\multipart.py', reloading
+2025-05-22 09:41:11,437 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-22 09:41:13,395 - werkzeug - WARNING -  * Debugger is active!
+2025-05-22 09:41:13,436 - werkzeug - INFO -  * Debugger PIN: 996-867-870
+2025-05-22 09:41:30,660 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\helpers.py', reloading
+2025-05-22 09:41:32,413 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)

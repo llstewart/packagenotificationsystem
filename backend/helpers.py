@@ -1,10 +1,15 @@
 import os
 import requests  # For sending HTTP requests
+import logging
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import Flask, jsonify, request, url_for  # ✅ Add `request` import
 from flask_cors import CORS
+
+# Initialize logger
+logger = logging.getLogger(__name__)
+
 GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwwgLr6bLg7mr85sLVi8a9eN-wJ_yHYAkK_tQzJ8EFQRMFBqBAzrJ49cz86w-UBNb_U3Q/exec"
 
 # ✅ Load environment variables
@@ -177,6 +182,7 @@ def check_resident_email():
     apt_number = data.get("aptNumber")
 
     if not apt_number:
+        logger.warning("Apartment number missing in email check request")
         return jsonify({"error": "Apartment number is required"}), 400
 
     payload = {
@@ -188,7 +194,14 @@ def check_resident_email():
 
     if google_response.status_code == 200:
         result = google_response.json()
+        exists = result.get("message", {}).get("exists", False)
+        if exists:
+            logger.info(f"Email found for apartment {apt_number}")
+        else:
+            logger.warning(f"No email found for apartment {apt_number}")
         return jsonify(result), 200
+        
+    logger.warning(f"Failed to check email for apartment {apt_number}")
     return jsonify({"error": "Failed to check email"}), 500
 
 ### ───────────────────────────────────────────
@@ -200,6 +213,7 @@ def log_package():
 
     required_fields = ["name", "aptNumber", "courier", "description"]
     if not all(field in data for field in required_fields):
+        logger.warning(f"Missing required fields in package data: {data}")
         return jsonify({"error": "Missing required fields"}), 400
 
     # Get the resident's emails
@@ -210,6 +224,7 @@ def log_package():
     google_response = requests.post(GOOGLE_SCRIPT_URL, json=payload)
 
     if google_response.status_code != 200:
+        logger.warning(f"Failed to retrieve resident emails for apartment {data['aptNumber']}")
         return jsonify({"error": "Failed to retrieve resident emails"}), 500
     
     email_data = google_response.json()
@@ -221,10 +236,11 @@ def log_package():
     if isinstance(resident_emails, str):  
         resident_emails = [resident_emails]  # Convert single email into a list
 
-
-    if not resident_emails:
-        return jsonify({"error": "No email found for the given apartment"}), 404
-
+    # Allow package logging even if no emails are found (just log a warning)
+    has_emails = len(resident_emails) > 0
+    if not has_emails:
+        logger.warning(f"No email found for apartment {data['aptNumber']}. Package will be logged without notification.")
+    
     # Log the package
     log_payload = {
         "action": "logPackage",
@@ -241,10 +257,15 @@ def log_package():
         description_text = f"\n\nDescription: {description}" if description else "\n\nThere was no description provided."
         email_body = f"Hello,\n\nApartment #{data['aptNumber']}: A package has arrived for {data['name']}.{description_text}"
 
-        # Send email notification to all associated emails
-        for email in resident_emails:
-            send_email(email, "Package Arrival Notification", email_body)
+        # Send email notification to all associated emails if any exist
+        if resident_emails:
+            for email in resident_emails:
+                send_email(email, "Package Arrival Notification", email_body)
+            logger.info(f"Package logged successfully for {data['name']} at apartment {data['aptNumber']} with notifications sent")
+        else:
+            logger.info(f"Package logged successfully for {data['name']} at apartment {data['aptNumber']} without notifications")
+        
+        return jsonify({"message": "Package logged successfully", "emailsSent": len(resident_emails) > 0}), 200
 
-        return jsonify({"message": "Package logged and emails sent successfully"}), 200
-
+    logger.warning(f"Failed to log package for {data['name']} at apartment {data['aptNumber']}")
     return jsonify({"error": "Failed to log package"}), 500

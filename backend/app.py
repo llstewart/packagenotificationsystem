@@ -1,9 +1,21 @@
 import os
+import logging
 from flask import Flask
 from flask_cors import CORS
 from helpers import check_resident_email
 from helpers import log_package  # ✅ Import the functions from helpers.py
 from helpers import residents  # ✅ Import the function from helpers.py
+
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler('app.log')
+    ]
+)
+logger = logging.getLogger(__name__)
 
 # ✅ Load environment variables
 EMAIL_NOTIFICATIONS_ENABLED = os.getenv("EMAIL_NOTIFICATIONS", "true").lower() == "true"

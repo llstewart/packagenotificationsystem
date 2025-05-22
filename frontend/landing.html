@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PackageNotify</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=SF+Pro+Text:wght@300;400;500;600&display=swap">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'apple-gray': '#f5f5f7',
+                        'apple-dark': '#1d1d1f',
+                        'apple-blue': '#0071e3',
+                        'apple-blue-hover': '#0077ED',
+                        'apple-light-gray': '#fbfbfd'
+                    },
+                    fontFamily: {
+                        sans: ['"SF Pro Text"', '"SF Pro Display"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        display: ['"SF Pro Display"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>    <style>
+        body {
+            font-family: "SF Pro Text", "SF Pro Display", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            letter-spacing: -0.01em;
+        }
+        .font-display {
+            font-family: "SF Pro Display", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .btn-apple {
+            background-color: #0071e3;
+            color: white;
+            font-weight: 400;
+            padding: 0.625rem 1.75rem;
+            border-radius: 9999px;
+            transition: all 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+            font-size: 0.875rem;
+        }
+        .btn-apple:hover {
+            background-color: #0077ED;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        .btn-apple:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+        .btn-apple-outline {
+            background-color: white;
+            color: #0071e3;
+            font-weight: 500;
+            padding: 0.5rem 1.75rem;
+            border-radius: 9999px;
+            transition: all 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .btn-apple-outline:hover {
+            background-color: #f3f4f6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        .btn-apple-outline:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+        .link-apple {
+            color: #0071e3;
+            transition: all 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .link-apple:hover {
+            color: #0077ED;
+            text-decoration: underline;
+        }
+        .feature-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: transform;
+            padding: 1.5rem;
+            border-radius: 1rem;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+        }
+        .nav-link {
+            color: #1d1d1f;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0 0.5rem;
+            transition: color 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+        }
+        .nav-link:hover {
+            color: #0071e3;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: #0071e3;
+            transition: width 250ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        /* Apple-style blur background */
+        .apple-blur-bg {
+            backdrop-filter: saturate(180%) blur(20px);
+            background-color: rgba(255, 255, 255, 0.72);
+        }
+        
+        /* Apple-style responsive adjustments */
+        @media (max-width: 640px) {
+            .feature-card:hover {
+                transform: none;
+                background-color: transparent;
+                box-shadow: none;
+            }
+            
+            .feature-card {
+                padding: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white text-apple-dark">    <!-- Navigation -->
+    <nav class="apple-blur-bg border-b border-gray-200/20 sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-3">
+            <div class="flex justify-center items-center">
+                <div class="flex space-x-7 sm:space-x-9 text-xs items-center">
+                    <a href="#" class="text-sm font-medium opacity-80 hover:opacity-100"><i class="fas fa-box-open"></i></a>
+                    <a href="#features" class="nav-link hidden sm:block">Features</a>
+                    <a href="#how-it-works" class="nav-link hidden sm:block">How It Works</a>
+                    <a href="#packages" class="nav-link hidden sm:block">Log Package</a>
+                    <a href="#register" class="nav-link hidden sm:block">Register</a>
+                    <a href="#support" class="nav-link hidden sm:block">Support</a>
+                    <a href="#" class="nav-link hidden sm:block"><i class="fas fa-search text-xs"></i></a>
+                    <a href="#" class="nav-link block sm:hidden"><i class="fas fa-bars"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden bg-white border-t border-gray-200/20">
+            <div class="px-4 pt-2 pb-4 space-y-3">
+                <a href="#features" class="block nav-link py-2">Features</a>
+                <a href="#how-it-works" class="block nav-link py-2">How It Works</a>
+                <a href="#packages" class="block nav-link py-2">Log Package</a>
+                <a href="#register" class="block nav-link py-2">Register</a>
+                <a href="#support" class="block nav-link py-2">Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-apple-gray text-apple-dark pb-10">
+        <div class="max-w-5xl mx-auto text-center pt-20 pb-10 px-6">
+            <div class="space-y-4">
+                <h1 class="font-display text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight leading-tight">
+                    PackageNotify
+                </h1>
+                <h2 class="font-display text-3xl sm:text-4xl font-medium text-gray-500 leading-tight">
+                    SERIES 1
+                </h2>
+                <p class="text-xl sm:text-2xl font-light pt-1 pb-2">
+                    Effortless package management.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                    <a href="#packages" class="btn-apple text-center">Log a Package</a>
+                    <a href="#register" class="btn-apple-outline text-center">Register</a>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1565431709147-9c0d849b0d5a?q=80&w=1800&auto=format&fit=crop" 
+                 alt="Package Notification System" 
+                 class="w-full object-cover mx-auto"
+                 style="max-height: 600px;">
+        </div>
+    </header>    <!-- The Latest -->
+    <section class="bg-white py-20 text-center">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="font-display text-4xl font-semibold mb-1">The latest.</h2>
+            <p class="text-xl text-gray-500 mb-16 font-light">Take a look at what's new, right now.</p>            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="feature-card">
+                    <span class="font-display text-5xl font-medium text-apple-dark">98%</span>
+                    <p class="text-gray-500 mt-2 text-lg font-light">Delivery Notification Rate</p>
+                    <p class="text-gray-400 text-sm mt-1">Real-time alerts</p>
+                </div>
+                <div class="feature-card">
+                    <span class="font-display text-5xl font-medium text-apple-dark">5 min</span>
+                    <p class="text-gray-500 mt-2 text-lg font-light">Average Processing Time</p>
+                    <p class="text-gray-400 text-sm mt-1">Quick and efficient</p>
+                </div>
+                <div class="feature-card">
+                    <span class="font-display text-5xl font-medium text-apple-dark">24/7</span>
+                    <p class="text-gray-500 mt-2 text-lg font-light">Package Logging Availability</p>
+                    <p class="text-gray-400 text-sm mt-1">Always accessible</p>
+                </div>
+            </div>
+        </div>
+    </section>    <!-- Features Section -->
+    <section id="features" class="py-24 bg-apple-gray">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-24">
+                <h2 class="font-display text-4xl font-semibold mb-2">Amazing features.</h2>
+                <p class="text-xl text-gray-500 font-light">Everything you need for efficient package management.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row space-y-16 md:space-y-0">
+                <div class="md:w-1/2 md:pr-16 flex flex-col justify-center order-2 md:order-1">
+                    <h3 class="font-display text-3xl font-medium mb-6">Instant Notifications</h3>
+                    <p class="text-xl text-gray-500 font-light mb-8 leading-relaxed">Residents receive immediate email notifications when their packages arrive, ensuring nothing gets lost or forgotten.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div class="flex items-start">
+                            <div>
+                                <h4 class="font-medium mb-1.5">Real-time Alerts</h4>
+                                <p class="text-gray-500 text-sm">Notifications sent immediately</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div>
+                                <h4 class="font-medium mb-1.5">Admin Approval</h4>
+                                <p class="text-gray-500 text-sm">Secure verification process</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div>
+                                <h4 class="font-medium mb-1.5">Easy Logging</h4>
+                                <p class="text-gray-500 text-sm">Simple interface for staff</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div>
+                                <h4 class="font-medium mb-1.5">Package History</h4>
+                                <p class="text-gray-500 text-sm">Track all deliveries</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 order-1 md:order-2">
+                    <img src="https://images.unsplash.com/photo-1584552504935-f1fdfbed25b7?q=80&w=760&auto=format&fit=crop" 
+                         alt="Notification Feature" 
+                         class="rounded-3xl w-full object-cover"
+                         style="height: 500px;">
+                </div>
+            </div>
+        </div>
+    </section><!-- How It Works -->
+    <section id="how-it-works" class="py-28 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="font-display text-4xl font-semibold mb-2">How it works.</h2>
+                <p class="text-xl text-gray-500 font-light">A simple three-step process for package management.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-apple-blue/10 text-apple-blue rounded-full flex items-center justify-center text-lg font-medium mb-6">1</div>
+                    <h3 class="font-display text-2xl font-medium mb-3">Register</h3>
+                    <p class="text-gray-500 max-w-xs mx-auto font-light">Residents register with their apartment number and contact information for verification.</p>
+                    <div class="mt-6">
+                        <a href="#register" class="link-apple text-sm font-medium">Register now <i class="fas fa-chevron-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-apple-blue/10 text-apple-blue rounded-full flex items-center justify-center text-lg font-medium mb-6">2</div>
+                    <h3 class="font-display text-2xl font-medium mb-3">Log Package</h3>
+                    <p class="text-gray-500 max-w-xs mx-auto font-light">Staff quickly logs packages when they arrive with simple package details entry.</p>
+                    <div class="mt-6">
+                        <a href="#packages" class="link-apple text-sm font-medium">Log a package <i class="fas fa-chevron-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-apple-blue/10 text-apple-blue rounded-full flex items-center justify-center text-lg font-medium mb-6">3</div>
+                    <h3 class="font-display text-2xl font-medium mb-3">Get Notified</h3>
+                    <p class="text-gray-500 max-w-xs mx-auto font-light">Residents automatically receive email notifications about their package arrival.</p>
+                    <div class="mt-6">
+                        <a href="#" class="link-apple text-sm font-medium">Learn more <i class="fas fa-chevron-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>    <!-- Forms Section -->
+    <section class="py-28 bg-apple-gray">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-semibold mb-2">Package management.</h2>
+                <p class="text-xl text-gray-500 font-light">Simplified for modern apartments.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">                <!-- Package Logging Form -->
+                <div id="packages" class="bg-white p-8 sm:p-10 rounded-2xl shadow-md transform transition-all duration-300 hover:shadow-lg">
+                    <h2 class="font-display text-2xl font-medium mb-8">Log a Package</h2>
+                    <form id="packageForm" class="space-y-6">
+                        <div>
+                            <label for="pkg-name" class="block text-sm font-medium text-gray-600 mb-1 transition-colors duration-300">Resident Name</label>
+                            <input type="text" id="pkg-name" name="name" required
+                                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 focus:border-apple-blue focus:ring-1 focus:ring-apple-blue text-base transition-all duration-300">
+                        </div>
+                        <div>
+                            <label for="pkg-apartment" class="block text-sm font-medium text-gray-600 mb-1 transition-colors duration-300">Apartment #</label>
+                            <input type="text" id="pkg-apartment" name="apartment" required
+                                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 focus:border-apple-blue focus:ring-1 focus:ring-apple-blue text-base transition-all duration-300">
+                        </div>
+                        <div>
+                            <label for="pkg-courier" class="block text-sm font-medium text-gray-600 mb-1 transition-colors duration-300">Courier</label>
+                            <input type="text" id="pkg-courier" name="courier" required
+                                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 focus:border-apple-blue focus:ring-1 focus:ring-apple-blue text-base transition-all duration-300">
+                        </div>
+                        <div>
+                            <label for="pkg-description" class="block text-sm font-medium text-gray-600 mb-1 transition-colors duration-300">Description</label>
+                            <textarea id="pkg-description" name="description" rows="3" required
+                                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 focus:border-apple-blue focus:ring-1 focus:ring-apple-blue text-base transition-all duration-300"></textarea>
+                        </div>
+                        <button type="submit" class="btn-apple w-full mt-6 transition-all duration-300 hover:shadow-md">
+                            Log Package
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Resident Registration Form -->
+                <div id="register" class="bg-white p-8 sm:p-10 rounded-2xl shadow-md transform transition-all duration-300 hover:shadow-lg">
+                    <h2 class="font-display text-2xl font-medium mb-8">Register as Resident</h2>
+                    <form id="registrationForm" class="space-y-6">
+                        <div>
+                            <label for="res-name" class="block text-sm font-medium text-gray-600 mb-1 transition-colors duration-300">Full Name</label>
+                            <input type="text" id="res-name" name="name" required
+                                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 focus:border-apple-blue focus:ring-1 focus:ring-apple-blue text-base transition-all duration-300">
+                        </div>
+                        <div>
+                            <label for="res-apartment" class="block text-sm font-medium text-gray-600 mb-1 transition-colors duration-300">Apartment #</label>
+                            <input type="text" id="res-apartment" name="apartment" required
+                                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 focus:border-apple-blue focus:ring-1 focus:ring-apple-blue text-base transition-all duration-300">
+                        </div>
+                        <div>
+                            <label for="res-email" class="block text-sm font-medium text-gray-600 mb-1 transition-colors duration-300">Email</label>
+                            <input type="email" id="res-email" name="email" required
+                                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 focus:border-apple-blue focus:ring-1 focus:ring-apple-blue text-base transition-all duration-300">
+                        </div>
+                        <div>
+                            <label for="res-phone" class="block text-sm font-medium text-gray-600 mb-1 transition-colors duration-300">Phone Number</label>
+                            <input type="tel" id="res-phone" name="phone"
+                                class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 focus:border-apple-blue focus:ring-1 focus:ring-apple-blue text-base transition-all duration-300"
+                                placeholder="e.g., 123-456-7890">
+                        </div>
+                        <button type="submit" class="btn-apple w-full mt-6 transition-all duration-300 hover:shadow-md">
+                            Register
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>    <!-- Footer -->
+    <footer class="bg-apple-light-gray text-apple-dark py-16">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-xs">
+                <div>
+                    <h3 class="font-semibold mb-3">Features</h3>
+                    <ul class="space-y-2 text-gray-500">
+                        <li><a href="#" class="hover:text-apple-blue">Notifications</a></li>
+                        <li><a href="#" class="hover:text-apple-blue">Admin Panel</a></li>
+                        <li><a href="#" class="hover:text-apple-blue">Package Tracking</a></li>
+                        <li><a href="#" class="hover:text-apple-blue">Analytics</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-3">Resources</h3>
+                    <ul class="space-y-2 text-gray-500">
+                        <li><a href="#" class="hover:text-apple-blue">Documentation</a></li>
+                        <li><a href="#" class="hover:text-apple-blue">API Reference</a></li>
+                        <li><a href="#" class="hover:text-apple-blue">System Status</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-3">Support</h3>
+                    <ul class="space-y-2 text-gray-500">
+                        <li><a href="#" class="hover:text-apple-blue">Help Center</a></li>
+                        <li><a href="#" class="hover:text-apple-blue">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-apple-blue">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-3">Company</h3>
+                    <ul class="space-y-2 text-gray-500">
+                        <li><a href="#" class="hover:text-apple-blue">About Us</a></li>
+                        <li><a href="#" class="hover:text-apple-blue">Careers</a></li>
+                        <li><a href="#" class="hover:text-apple-blue">Press</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-3">Legal</h3>
+                    <ul class="space-y-2 text-gray-500">
+                        <li><a href="#" class="hover:text-apple-blue">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-apple-blue">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-apple-blue">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-300 mt-10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <div class="mb-4 md:mb-0">
+                    Copyright © 2025 PackageNotify. All rights reserved.
+                </div>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-apple-blue">Privacy Policy</a>
+                    <a href="#" class="hover:text-apple-blue">Terms of Use</a>
+                    <a href="#" class="hover:text-apple-blue">Sales Policy</a>
+                    <a href="#" class="hover:text-apple-blue">Legal</a>
+                    <a href="#" class="hover:text-apple-blue">Site Map</a>
+                </div>
+            </div>
+        </div>
+    </footer>    <script src="landing.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.querySelector('.sm\\:hidden');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
