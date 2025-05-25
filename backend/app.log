@@ -77,3 +77,32 @@
 2025-05-22 09:41:32,413 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
 2025-05-22 09:41:34,117 - werkzeug - WARNING -  * Debugger is active!
 2025-05-22 09:41:34,149 - werkzeug - INFO -  * Debugger PIN: 996-867-870
+2025-05-25 12:23:48,116 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-25 12:23:48,118 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-25 12:23:48,161 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-25 12:23:49,327 - werkzeug - WARNING -  * Debugger is active!
+2025-05-25 12:23:49,362 - werkzeug - INFO -  * Debugger PIN: 996-867-870
+2025-05-25 12:23:53,332 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 12:23:53] "OPTIONS /api/residents HTTP/1.1" 200 -
+2025-05-25 12:23:55,259 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 12:23:55] "POST /api/residents HTTP/1.1" 200 -
+2025-05-25 12:25:29,353 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\logging\\__init__.py', reloading
+2025-05-25 12:25:30,473 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-25 12:25:31,782 - werkzeug - WARNING -  * Debugger is active!
+2025-05-25 12:25:31,824 - werkzeug - INFO -  * Debugger PIN: 996-867-870
+2025-05-25 12:26:48,950 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\_pytest\\cacheprovider.py', reloading
+2025-05-25 12:26:49,170 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\site-packages\\_pytest\\fixtures.py', reloading
+2025-05-25 12:26:50,328 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-25 12:26:51,586 - werkzeug - WARNING -  * Debugger is active!
+2025-05-25 12:26:51,614 - werkzeug - INFO -  * Debugger PIN: 996-867-870
+2025-05-25 12:27:52,864 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\anaconda3\\Lib\\os.py', reloading
+2025-05-25 12:27:53,962 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-25 12:27:55,231 - werkzeug - WARNING -  * Debugger is active!
+2025-05-25 12:27:55,273 - werkzeug - INFO -  * Debugger PIN: 996-867-870
+2025-05-25 12:28:34,325 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 12:28:34] "OPTIONS /api/residents HTTP/1.1" 200 -
+2025-05-25 12:28:35,432 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 12:28:35] "POST /api/residents HTTP/1.1" 200 -
+2025-05-25 12:30:22,887 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 12:30:22] "OPTIONS /api/residents HTTP/1.1" 200 -
+2025-05-25 12:30:23,962 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 12:30:23] "POST /api/residents HTTP/1.1" 200 -
+2025-05-25 12:35:15,659 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\helpers.py', reloading
+2025-05-25 12:35:15,662 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\helpers.py', reloading
+2025-05-25 12:35:15,665 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\helpers.py', reloading
+2025-05-25 12:35:16,832 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
