@@ -75,3 +75,5 @@
 2025-05-22 09:41:13,436 - werkzeug - INFO -  * Debugger PIN: 996-867-870
 2025-05-22 09:41:30,660 - werkzeug - INFO -  * Detected change in 'C:\\Users\\linco\\OneDrive\\Documents\\packagenotificationsystem\\backend\\helpers.py', reloading
 2025-05-22 09:41:32,413 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-22 09:41:34,117 - werkzeug - WARNING -  * Debugger is active!
+2025-05-22 09:41:34,149 - werkzeug - INFO -  * Debugger PIN: 996-867-870
